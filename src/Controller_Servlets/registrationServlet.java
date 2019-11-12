@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import Beans.CustomersBean;
+import DAO.RegisterDao;
 
 
 @WebServlet("/registrationServlet")
@@ -30,7 +31,7 @@ public class registrationServlet extends HttpServlet {
         customersBean.setLogin(login);
         customersBean.setPassword(password);
 
-        RegisterDAO registerDAO = new RegisterDAO();
+        RegisterDao registerDAO = new RegisterDao();
 
         // здесь присутствует базовая логика регистрационного приложения.
         // Мы собираемся вставить пользовательские данные в базу данных.
@@ -39,13 +40,13 @@ public class registrationServlet extends HttpServlet {
         if (userRegistered.equals("Success"))
             // В случае успеха можем отобразить сообщение пользователю на домашней странице
         {
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         }
         else
             // В случае ошибки отобразить сообщение пользователю.
         {
             request.setAttribute("errMessage", userRegistered);
-            request.getRequestDispatcher("/index.html").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
     }

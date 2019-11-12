@@ -6,7 +6,6 @@ public class CustomersBean {
     private String email;
     private String login;
     private String password;
-    public boolean valid;
 
     public String getUsername() {
         return username;
@@ -48,11 +47,4 @@ public class CustomersBean {
         this.password = password;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean newValid) {
-        valid = newValid;
-    }
 }
