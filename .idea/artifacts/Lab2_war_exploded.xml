@@ -11,6 +11,7 @@
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/apache-tomcat-9.0.27/apache-tomcat-9.0.27/webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar" />
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/apache-tomcat-9.0.27/apache-tomcat-9.0.27/webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-8.0.18.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/postgresql-42.2.8.jar" />
         </element>
         <element id="directory" name="src">
           <element id="dir-copy" path="$PROJECT_DIR$/src" />
