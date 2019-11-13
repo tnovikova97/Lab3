@@ -17,5 +17,10 @@
 <br></br>
 <b>Please <a href="index.jsp">log-in</a> to continue.</b>
 
+
+Welcome <%=request.getAttribute("login") %>
+
+<div style="text-align: right"><a href="LogoutServlet">Logout</a></div>
+
 </body>
 </html>

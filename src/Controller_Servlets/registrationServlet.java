@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import Beans.CustomersBean;
-import DAO.RegisterDao;
+import Model_DAO.RegisterDao;
 
 
 @WebServlet("/registrationServlet")

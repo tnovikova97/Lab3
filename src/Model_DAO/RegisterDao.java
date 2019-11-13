@@ -1,4 +1,4 @@
-package DAO;
+package Model_DAO;
 
 import Beans.CustomersBean;
 import mySQL_util.DBConnection;
@@ -35,7 +35,7 @@ public class RegisterDao {
 
             if (i!=0)
                 // чтобы убедиться, что данные были вставлены в базу данных
-                System.out.println("uspeh");
+                System.out.println("succes");
                 return "succes";
         }
 
@@ -44,7 +44,7 @@ public class RegisterDao {
             e.printStackTrace();
         }
 
-        System.out.println("no");
+        System.out.println("error");
         return "Oops.. Something went wrong there!";
         // в случае ошибки отправить сообщение
     }
