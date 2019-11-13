@@ -14,13 +14,13 @@ public class logoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        //
+        //Выбираем сессионный объект
 
         if (session!=null)
-            //
+            //Если сессия не нулевая
         {
             session.invalidate();
-            //
+            //удаляет все атрибуты сеанса, связанные с сеансом
             request.setAttribute("errMessage", "You have logged out successfully");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.html");
             requestDispatcher.forward(request, response);

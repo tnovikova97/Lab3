@@ -1,19 +1,17 @@
-<%--
+<%@ page import="Beans.CustomersBean" %><%--
   Created by IntelliJ IDEA.
   User: Татьяна
-  Date: 12.11.2019
-  Time: 23:43
+  Date: 13.11.2019
+  Time: 20:01
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
-    <title>Home page</title>
+    <title>Products</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
     <link rel="stylesheet" type="text/css" href="./css/feedback.css"/>
 </head>
-
 <body>
 
 <section class="header-section">
@@ -28,7 +26,7 @@
                 </div>
                 <div class="user-panel">
                     <div class="login">
-                        <div class="button-reg js-button-reg"><span>Войти</span></div>
+                        <div class="button-reg "><a href="logoutServlet"><span>Выйти</span></a></div>
                     </div>
                 </div>
             </div>
@@ -63,18 +61,15 @@
 <div class="feedback-page">
 
     <div class="feedback-page">
-
-        <h1 style="font-size: 30px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a" >Регистрация прошла успешно!</h1>
-        <p style="font-size: 25px; text-shadow: #1a1a1a"> Пожалуйста <a  href="index.html"> <span style="color: #ffbc7b; font-size: 25px; text-shadow: #1a1a1a">войдите</span> </a> для продолжения</p>
-
+        <div style="text-align: center; font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a"> Здравствуйте <%=request.getAttribute("login") %> !</div>
     </div>
 
 </div>
 
 
 
-
-
+<span style="color:red"><%=(request.getAttribute("errMessage") == null) ? ""
+        : request.getAttribute("errMessage")%></span>
 
 </body>
 </html>

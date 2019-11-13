@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -43,8 +44,9 @@ public class loginServlet extends HttpServlet {
             request.setAttribute("login", login);
             // с setAttribute () мы можем определить пару «ключ» и значение,
             // чтобы м могли получить ее в будущем, используя getAttribute («ключ»)
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            request.getRequestDispatcher("products.jsp").forward(request, response);
             //RequestDispatcher используется для отправки элемента управления на вызванную страницу
+
         }
         else
         {
@@ -52,7 +54,7 @@ public class loginServlet extends HttpServlet {
             //Если функция authenticateUser () возвращает другую строку, чем SUCCESS,
             // она будет снова отправлена на страницу входа.
             // Здесь сообщение об ошибке, возвращаемое функцией, было сохранено в ключе errMessage.
-            request.getRequestDispatcher("index.html").forward(request, response);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
             //пересылка запроса
         }
     }

@@ -20,7 +20,7 @@ public class RegisterDao {
 
         try {
             connection = DBConnection.createConnection();
-            String query = "insert into customers(username, surname, email, login, password) values (?,?,?,?,?)";
+            String query = "insert into users(username, surname, email, login, password) values (?,?,?,?,?)";
 
             // вставляем данные пользователя в таблицу customers
             preparedStatement = connection.prepareStatement(query);
@@ -35,8 +35,8 @@ public class RegisterDao {
 
             if (i!=0)
                 // чтобы убедиться, что данные были вставлены в базу данных
-                System.out.println("succes");
-                return "succes";
+                System.out.println("success");
+                return "success";
         }
 
         catch (SQLException e)

@@ -26,7 +26,7 @@ public class LoginDao {
 
             connection = DBConnection.createConnection();             //установление соединения
             statement = connection.createStatement();             // оператор для написания запросов
-            resultSet = statement.executeQuery("select login, password from customers");
+            resultSet = statement.executeQuery("select login, password from users");
             // выборка всех записей и сохранение в результате
 
             while (resultSet.next())
@@ -39,7 +39,7 @@ public class LoginDao {
                 if (login.equals(loginDB) && password.equals(passwordDB))
                 {
                     System.out.println("success");
-                    return "succes";
+                    return "success";
                     // если введенные пользователем значения уже присутствуют в БД,
                     // это означает, что пользователь уже зарегистрирован,
                     // поэтому возвращаем сообщение success.

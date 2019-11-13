@@ -37,16 +37,16 @@ public class registrationServlet extends HttpServlet {
         // Мы собираемся вставить пользовательские данные в базу данных.
         String userRegistered = registerDAO.registerUser(customersBean);
 
-        if (userRegistered.equals("Success"))
-            // В случае успеха можем отобразить сообщение пользователю на домашней странице
+        if (userRegistered.equals("success"))
+            // В случае успеха перенапрявляем пользователя на страницу home.jsp
         {
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
         else
             // В случае ошибки отобразить сообщение пользователю.
         {
-            request.setAttribute("errMessage", userRegistered);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+//            request.setAttribute("errMessage", userRegistered);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
     }
