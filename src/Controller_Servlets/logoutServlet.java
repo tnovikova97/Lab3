@@ -1,5 +1,6 @@
 package Controller_Servlets;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,10 @@ public class logoutServlet extends HttpServlet {
         {
             session.invalidate();
             //
-            request.setAttribute("errMessage", "You have logget out successfuly");
+            request.setAttribute("errMessage", "You have logged out successfully");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.html");
+            requestDispatcher.forward(request, response);
+            System.out.println("Logged out");
         }
     }
 

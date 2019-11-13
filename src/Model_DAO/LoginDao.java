@@ -24,11 +24,9 @@ public class LoginDao {
 
         try {
 
-            connection = DBConnection.createConnection();
-            //установление соединения
-            statement = connection.createStatement();
-            // оператор для написания запросов
-            resultSet = statement.executeQuery("select login, password from 'public'.customers");
+            connection = DBConnection.createConnection();             //установление соединения
+            statement = connection.createStatement();             // оператор для написания запросов
+            resultSet = statement.executeQuery("select login, password from customers");
             // выборка всех записей и сохранение в результате
 
             while (resultSet.next())

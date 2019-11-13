@@ -298,6 +298,8 @@
             <input type="password" placeholder="Пароль" name="password_auth" class="input-reg" required>
             <div id="password_auth_error" class="validation_error"></div>
           </div>
+          <span style="color:red"><%=(request.getAttribute("errMessage") == null) ? ""
+                  : request.getAttribute("errMessage")%></span>
           <input type="submit" value="Войти" name="reg" class="button_reg_auth">
           <p class="message"> Нет аккаунта? <a href="" id="reg-link"> Зарегистрироваться</a></p>
         </form>

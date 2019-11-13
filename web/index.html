@@ -279,16 +279,16 @@
         <div class="close-popup-reg js-close-reg"></div>
         <div class="user-form">
 
-            <form method="post" action="loginServlet" onsubmit="return validate_auth()" class="login-form"
+            <form method="get" action="loginServlet" onsubmit="return validate_auth()" class="login-form"
                   id="login"
                   name="auth-form">
                 <h2>Войти</h2>
                 <div>
-                    <input type="text" placeholder="Логин" name="login_auth" class="input-reg" required>
+                    <input type="text" placeholder="Логин" name="login" class="input-reg" required>
                     <div id="login_auth_error" class="validation_error"></div>
                 </div>
                 <div>
-                    <input type="password" placeholder="Пароль" name="password_auth" class="input-reg" required>
+                    <input type="password" placeholder="Пароль" name="password" class="input-reg" required>
                     <div id="password_auth_error" class="validation_error"></div>
                 </div>
                 <input type="submit" value="Войти" name="reg" class="button_reg_auth">
