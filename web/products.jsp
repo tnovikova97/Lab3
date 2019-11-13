@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Beans.CustomersBean" %><%--
   Created by IntelliJ IDEA.
   User: Татьяна
@@ -62,6 +63,46 @@
 
     <div class="feedback-page">
         <div style="text-align: center; font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a"> Здравствуйте <%=request.getAttribute("login") %> !</div>
+
+    <center>
+        <h1>Управление продукцией часов</h1>
+        <h2>
+            <a href="/new"> add new product</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="/list">list all product</a>
+        </h2>
+    </center>
+
+        <div align="center">
+            <table border="1" cellpadding="5">
+                <caption>
+                    <h2>list of watchs</h2>
+                </caption>
+                    <tr>
+                        <th>id</th>
+                        <th>title</th>
+                        <th>type</th>
+                        <th>gender</th>
+                        <th>price</th>
+                        <th>actions</th>
+                    </tr>
+                    <c:forEach var="watchs" items="${listWatchs}">
+                        <tr>
+                            <td><c:out value="${watchs.id}"/></td>
+                            <td><c:out value="${watchs.title}"/></td>
+                            <td><c:out value="${watchs.type}"/></td>
+                            <td><c:out value="${watchs.gender}"/></td>
+                            <td><c:out value="${watchs.price}"/></td>
+                            <td>
+                                <a href="/edit?id=<c:out value='${watchs.id}' />">Edit</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="/delete?id=<c:out value='${watchs.id}' />">Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+            </table>
+        </div>
+
     </div>
 
 </div>
