@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="Beans.CustomersBean" %><%--
+<%@ page import="Beans.WatchsBean" %><%--
   Created by IntelliJ IDEA.
   User: Татьяна
   Date: 13.11.2019
@@ -64,42 +64,40 @@
     <div class="feedback-page">
         <div style="text-align: center; font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a"> Здравствуйте <%=request.getAttribute("login") %> !</div>
 
-    <center>
-        <h1>Управление продукцией часов</h1>
-        <h2>
-            <a href="/new"> add new product</a>
-            &nbsp;&nbsp;&nbsp;
-            <a href="/list">list all product</a>
-        </h2>
-    </center>
+        <center>
+            <h1>Watch Management</h1>
+            <h2>
+                <a href="new">Add New Watch</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="list">List All Watchs</a>
 
+            </h2>
+        </center>
         <div align="center">
             <table border="1" cellpadding="5">
-                <caption>
-                    <h2>list of watchs</h2>
-                </caption>
+                <caption><h2>List of Watchs</h2></caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>gender</th>
+                    <th>price</th>
+                    <th>Actions</th>
+                </tr>
+                <c:forEach var="watchsBean" items="${listWatch}">
                     <tr>
-                        <th>id</th>
-                        <th>title</th>
-                        <th>type</th>
-                        <th>gender</th>
-                        <th>price</th>
-                        <th>actions</th>
+                        <td><c:out value="${watchsBean.id}" /></td>
+                        <td><c:out value="${watchsBean.title}" /></td>
+                        <td><c:out value="${watchsBean.type}" /></td>
+                        <td><c:out value="${watchsBean.gender}" /></td>
+                        <td><c:out value="${watchsBean.price}" /></td>
+                        <td>
+                            <a href="edit?id=<c:out value='${watchsBean.id}' />">Edit</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="delete?id=<c:out value='${watchsBean.id}' />">Delete</a>
+                        </td>
                     </tr>
-                    <c:forEach var="watchs" items="${listWatchs}">
-                        <tr>
-                            <td><c:out value="${watchs.id}"/></td>
-                            <td><c:out value="${watchs.title}"/></td>
-                            <td><c:out value="${watchs.type}"/></td>
-                            <td><c:out value="${watchs.gender}"/></td>
-                            <td><c:out value="${watchs.price}"/></td>
-                            <td>
-                                <a href="/edit?id=<c:out value='${watchs.id}' />">Edit</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="/delete?id=<c:out value='${watchs.id}' />">Delete</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                </c:forEach>
             </table>
         </div>
 

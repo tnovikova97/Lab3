@@ -1,29 +1,32 @@
 package Beans;
 
 public class WatchsBean {
-    private int id;
-    private String title;
-    private String type;
-    private String gender;
-    private int price;
 
-    public WatchsBean() {
-    }
-
-    public WatchsBean(int id) {
-        this.id = id;
-    }
-
-    public WatchsBean(int id, String title, String type, String gender, int price) {
-        this(title, type, gender, price);
-        this.id = id;
-    }
+    public WatchsBean() {}
 
     public WatchsBean(String title, String type, String gender, int price) {
+        super();
         this.title = title;
         this.type = type;
         this.gender = gender;
         this.price = price;
+    }
+
+    public WatchsBean(int id, String title, String type, String gender, int price) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.type = type;
+        this.gender = gender;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,11 +61,12 @@ public class WatchsBean {
         this.price = price;
     }
 
-    public int getId() {
-        return id;
-    }
+    private int id;
+    private String title;
+    private String type;
+    private String gender;
+    private int price;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+
 }

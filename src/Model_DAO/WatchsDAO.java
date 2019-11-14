@@ -7,133 +7,126 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static mySQL_util.DBConnection.createConnection;
+
 public class WatchsDAO {
-    private String jdbcURL;
-    private String jdbcUsername;
-    private String jdbcPassword;
-    private Connection jdbcConnection;
 
-    public WatchsDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
-        this.jdbcURL = jdbcURL;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
+    private static final String INSERT_WATCH_SQL = "INSERT INTO watchs" + "  (title, type, gender, price) VALUES " +
+            " (?, ?, ?, ?);";
+    private static final String SELECT_WATCH_BY_ID = "select id, title, type, gender, price from watchs where id =?;";
+    private static final String SELECT_ALL_WATCH = "select * from watchs;";
+    private static final String DELETE_WATCH_SQL = "delete from watchs where id = ?;";
+    private static final String UPDATE_WATCH_SQL = "update watchs set title = ?, type = ?, gender = ?, price = ? where id = ?;";
+
+    public WatchsDAO() {
     }
 
-    protected void connect() throws SQLException {
-        if (jdbcConnection == null || jdbcConnection.isClosed()) {
-            try {
-                Class.forName("org.postgresql.Driver");
-            } catch (ClassNotFoundException e) {
-                throw new SQLException(e);
+    public void insertWatch(WatchsBean watchsBean) throws SQLException {
+        System.out.println(INSERT_WATCH_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_WATCH_SQL)) {
+            preparedStatement.setString(1, watchsBean.getTitle());
+            preparedStatement.setString(2, watchsBean.getType());
+            preparedStatement.setString(3, watchsBean.getGender());
+            preparedStatement.setInt(4, watchsBean.getPrice());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
+
+    public WatchsBean selectWatch(int id) {
+        WatchsBean watchsBean = null;
+        // Step 1: Establishing a Connection
+        try (Connection connection = createConnection();
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WATCH_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String type = rs.getString("type");
+                String gender = rs.getString("gender");
+                int price = rs.getInt("price");
+                watchsBean = new WatchsBean(id, title, type, gender, price);
             }
-            jdbcConnection = DriverManager.getConnection(
-                    jdbcURL, jdbcUsername, jdbcPassword);
+        } catch (SQLException e) {
+            printSQLException(e);
         }
+        return watchsBean;
     }
 
-    protected void disconnect() throws SQLException {
-        if (jdbcConnection != null && !jdbcConnection.isClosed()) {
-            jdbcConnection.close();
+    public List<WatchsBean> selectAllWatch() {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List<WatchsBean> watchsBeans = new ArrayList<>();
+        // Step 1: Establishing a Connection
+        try (Connection connection = createConnection();
+
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_WATCH)) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String type = rs.getString("type");
+                String gender = rs.getString("gender");
+                int price = rs.getInt("price");
+                watchsBeans.add(new WatchsBean(id, title, type, gender, price));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
         }
+        return watchsBeans;
     }
 
-    public boolean insertWatch(WatchsBean watchsBean) throws SQLException {
-        String sql = "insert into watchs(title, type, gender, price) values (?,?,?,?)";
-        connect();
-
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, watchsBean.getTitle());
-        statement.setString(2, watchsBean.getType());
-        statement.setString(3, watchsBean.getGender());
-        statement.setInt(4, watchsBean.getPrice());
-
-        boolean rowInserted = statement.executeUpdate()>0;
-        statement.close();
-        disconnect();
-        return rowInserted;
-    }
-
-    public List<WatchsBean> listAllWatchs() throws SQLException {
-        List<WatchsBean> listWatchs = new ArrayList<>();
-
-        String sql = "select * from watchs";
-
-        connect();
-
-        Statement statement = jdbcConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String title = resultSet.getString("title");
-            String type = resultSet.getString("type");
-            String gender = resultSet.getString("gender");
-            int price = resultSet.getInt("price");
-
-            WatchsBean watchsBean = new WatchsBean(id, title, type, gender, price);
-            listWatchs.add(watchsBean);
+    public boolean deleteWatch(int id) throws SQLException {
+        boolean rowDeleted;
+        try (Connection connection = createConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_WATCH_SQL)) {
+            statement.setInt(1, id);
+            rowDeleted = statement.executeUpdate() > 0;
         }
-
-        resultSet.close();
-        statement.close();
-
-        disconnect();
-
-        return listWatchs;
-    }
-
-    public boolean deleteWatch(WatchsBean watchsBean) throws SQLException {
-        String sql = "delete from watchs where id = ?";
-        connect();
-
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setInt(1, watchsBean.getId());
-
-        boolean rowDelete = statement.executeUpdate()>0;
-        statement.close();
-        disconnect();
-        return rowDelete;
+        return rowDeleted;
     }
 
     public boolean updateWatch(WatchsBean watchsBean) throws SQLException {
-        String sql = "update watchs set title = ?, type = ?, gender = ?, price =?";
-        sql += " where id = ?";
-        connect();
+        boolean rowUpdated;
+        try (Connection connection = createConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_WATCH_SQL)) {
+            statement.setString(1, watchsBean.getTitle());
+            statement.setString(2, watchsBean.getType());
+            statement.setString(3, watchsBean.getGender());
+            statement.setInt(4, watchsBean.getPrice());
+            statement.setInt(5, watchsBean.getId());
 
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, watchsBean.getTitle());
-        statement.setString(2, watchsBean.getType());
-        statement.setString(3, watchsBean.getGender());
-        statement.setInt(4, watchsBean.getPrice());
-        statement.setInt(5, watchsBean.getId());
-
-        boolean rowUpdate = statement.executeUpdate() > 0;
-        statement.close();
-        disconnect();
-        return rowUpdate;
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
-    public WatchsBean getWatch(int id) throws SQLException {
-        WatchsBean watchsBean = null;
-        String sql = "select * from watchs where id = ?";
-        connect();
-
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setInt(1, id);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()){
-            String title = resultSet.getString("title");
-            String type = resultSet.getString("type");
-            String gender = resultSet.getString("gender");
-            int price = resultSet.getInt("price");
-
-            watchsBean = new WatchsBean(id, title, type, gender, price);
+    private void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
         }
-
-        resultSet.close();
-        statement.close();
-        return watchsBean;
     }
 }
