@@ -1,7 +1,7 @@
 package Controller_Servlets;
 
-import Beans.WatchsBean;
-import Model_DAO.WatchsDAO;
+import Beans.Watches;
+import Model_DAO.WatchesDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,17 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/")
-public class watchServlet extends HttpServlet {
+@WebServlet("/watchesServlet")
+public class watchesServlet extends HttpServlet {
 
-    private WatchsDAO watchsDAO;
+    private WatchesDAO watchesDAO;
 
-    public void init(){
-        watchsDAO = new WatchsDAO();
+    public void init() {
+        watchesDAO = new WatchesDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +27,6 @@ public class watchServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String action = request.getServletPath();
 
         try {
@@ -37,79 +35,78 @@ public class watchServlet extends HttpServlet {
                     showNewForm(request, response);
                     break;
                 case "/insert":
-                    insertWatch(request, response);
+                    insertWatches(request, response);
                     break;
                 case "/delete":
-                    deleteWatch(request, response);
+                    deleteWatches(request, response);
                     break;
                 case "/edit":
                     showEditForm(request, response);
                     break;
                 case "/update":
-                    updateWatch(request, response);
+                    updateWatches(request, response);
                     break;
                 default:
-                    listWatch(request, response);
+                    listWatches(request, response);
                     break;
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+
     }
 
-    private void listWatch(HttpServletRequest request, HttpServletResponse response)
-        throws  SQLException, IOException, ServletException {
-        List <WatchsBean> listWatchsBean = watchsDAO.selectAllWatch();
-        request.setAttribute("listWatchsBean", listWatchsBean);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("products.jsp");
+    private void listWatches(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List <Watches> listWatches = watchesDAO.selectAllWatches();
+        request.setAttribute("listWatches", listWatches);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("watches-list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("watchs-form.jsp");
+    private void showNewForm (HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("watches-form.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, ServletException, IOException {
+    private void showEditForm (HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        WatchsBean existingWatchsBean = watchsDAO.selectWatch(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("watchs-form.jsp");
-        request.setAttribute("watch", existingWatchsBean);
+        Watches existingWatches = watchesDAO.selectWatches(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("watches-form.jsp");
+        request.setAttribute("watches", existingWatches);
         dispatcher.forward(request, response);
-
     }
 
-    private void insertWatch(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    private void insertWatches(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
         String title = request.getParameter("title");
         String type = request.getParameter("type");
         String gender = request.getParameter("gender");
         int price = Integer.parseInt(request.getParameter("price"));
-        WatchsBean newWatchsBean = new WatchsBean(title, type, gender, price);
-        watchsDAO.insertWatch(newWatchsBean);
+        Watches newWatches = new Watches(title, type, gender, price);
+        watchesDAO.insertWatches(newWatches);
         response.sendRedirect("list");
     }
 
-    private void updateWatch(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    private void updateWatches(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String type = request.getParameter("type");
         String gender = request.getParameter("gender");
         int price = Integer.parseInt(request.getParameter("price"));
 
-        WatchsBean book = new WatchsBean(id, title, type, gender, price);
-        watchsDAO.updateWatch(book);
+        Watches book = new Watches(id, title, type, gender, price);
+        watchesDAO.updateWatches(book);
         response.sendRedirect("list");
     }
 
-    private void deleteWatch(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    private void deleteWatches (HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        watchsDAO.deleteWatch(id);
+        watchesDAO.deleteWatches(id);
         response.sendRedirect("list");
     }
 }
