@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <html>
 <head>
     <title>Products Management Application</title>
@@ -15,17 +16,19 @@
 <body>
 
 <center>
-<h1>Watches Management</h1>
+<h1>Watch Management</h1>
 <h2>
-    <a href="new">Add new watches</a>
+    <a href="new">Add new watch</a>
     &nbsp;&nbsp;&nbsp;
-    <a href="list"> List all watches</a>
+    <a href="list"> List all watch</a>
 </h2>
 </center>
 <div align="center">
+
     <table border="1" cellpadding="6">
+        <%request.getParameter("item");%>
         <caption>
-            <h2>List of Watches</h2>
+            <h2>List of Watch</h2>
         </caption>
             <tr>
                 <th>Id</th>
@@ -35,17 +38,17 @@
                 <th>Price</th>
                 <th>Actions</th>
             </tr>
-            <c:forEach var="watches" items="${listWatches}">
+            <c:forEach var="watch" items="${listWatch}">
                 <tr>
-                    <td><c:out value="${watches.id}"/></td>
-                    <td><c:out value="${watches.title}"/></td>
-                    <td><c:out value="${watches.type}"/></td>
-                    <td><c:out value="${watches.gender}"/></td>
-                    <td><c:out value="${watches.price}"/></td>
+                    <td><c:out value="${watch.id}"/></td>
+                    <td><c:out value="${watch.title}"/></td>
+                    <td><c:out value="${watch.type}"/></td>
+                    <td><c:out value="${watch.gender}"/></td>
+                    <td><c:out value="${watch.price}"/></td>
                     <td>
-                        <a href="edit?id=<c:out value='${watches.id}'/>">Edit</a>
+                        <a href="edit?id=<c:out value='${watch.id}'/>">Edit</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="delete?id=<c:out value='${watches.id}' />">Delete</a>
+                        <a href="delete?id=<c:out value='${watch.id}' />">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

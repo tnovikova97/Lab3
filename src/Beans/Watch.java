@@ -1,6 +1,6 @@
 package Beans;
 
-public class Watches {
+public class Watch {
     private int id;
     private String title;
     private String type;
@@ -8,24 +8,24 @@ public class Watches {
     private int price;
 
 
-public Watches () {}
+    public Watch () {}
 
-public Watches (String title, String type, String gender, int price) {
-    super();
-    this.title = title;
-    this.type = type;
-    this.gender = gender;
-    this.price = price;
-}
+    public Watch (String title, String type, String gender, int price) {
+        super();
+        this.title = title;
+        this.type = type;
+        this.gender = gender;
+        this.price = price;
+    }
 
-public Watches(int id, String title, String type, String gender, int price) {
-    super();
-    this.id = id;
-    this.title = title;
-    this.type = type;
-    this.gender = gender;
-    this.price = price;
-}
+    public Watch(int id, String title, String type, String gender, int price) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.type = type;
+        this.gender = gender;
+        this.price = price;
+    }
 
     public int getId() {
         return id;

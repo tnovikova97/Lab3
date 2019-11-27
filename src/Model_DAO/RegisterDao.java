@@ -1,7 +1,7 @@
 package Model_DAO;
 
 import Beans.CustomersBean;
-import mySQL_util.DBConnection;
+import Database.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

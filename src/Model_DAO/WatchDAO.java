@@ -1,6 +1,6 @@
 package Model_DAO;
 
-import Beans.Watches;
+import Beans.Watch;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,30 +9,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static mySQL_util.DBConnection.createConnection;
+import static Database.DBConnection.createConnection;
 
-public class WatchesDAO {
+
+
+public class WatchDAO {
 
     Connection connection = null;
 
-    private static final String INSERT_WATCHES_SQL = "insert into watches (title, type, gender, price) values (?, ?, ?, ?);";
+    private static final String INSERT_WATCH_SQL = "insert into watch (title, type, gender, price) values (?, ?, ?, ?);";
 
-    private static final String SELECT_WATCHES_BY_ID = "select id, title, type, gender, price from watches where id = ?";
-    private static final String SELECT_ALL_WATCHES = "select * from watches";
-    private static final String DELETE_WATCHES_SQL = "delete from watches where id = ?;";
-    private static final String UPDATE_WATCHES_SQL = "update watches set title = ?, type = ?, gender = ?, price = ? where id = ?;";
+    private static final String SELECT_WATCH_BY_ID = "select id, title, type, gender, price from watch where id = ?";
+    private static final String SELECT_ALL_WATCH = "select * from watch";
+    private static final String DELETE_WATCH_SQL = "delete from watch where id = ?;";
+    private static final String UPDATE_WATCH_SQL = "update watch set title = ?, type = ?, gender = ?, price = ? where id = ?;";
 
-    public WatchesDAO() {}
+    public WatchDAO() {}
 
-    public void insertWatches(Watches watches) throws SQLException {
-        System.out.println(INSERT_WATCHES_SQL);
+    public void insertWatch(Watch watch) throws SQLException {
+        System.out.println(INSERT_WATCH_SQL);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = createConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_WATCHES_SQL)) {
-            preparedStatement.setString(1, watches.getTitle());
-            preparedStatement.setString(2, watches.getType());
-            preparedStatement.setString(3, watches.getGender());
-            preparedStatement.setInt(4, watches.getPrice());
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_WATCH_SQL)) {
+            preparedStatement.setString(1, watch.getTitle());
+            preparedStatement.setString(2, watch.getType());
+            preparedStatement.setString(3, watch.getGender());
+            preparedStatement.setInt(4, watch.getPrice());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -40,12 +42,12 @@ public class WatchesDAO {
         }
     }
 
-    public Watches selectWatches(int id) {
-        Watches watches = null;
+    public Watch selectWatch(int id) {
+        Watch watch = null;
         // Step 1: Establishing a Connection
         try (Connection connection = createConnection();
              // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WATCHES_BY_ID);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WATCH_BY_ID);) {
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
@@ -57,23 +59,23 @@ public class WatchesDAO {
                 String type = rs.getString("type");
                 String gender = rs.getString("gender");
                 int price = rs.getInt("price");
-                watches = new Watches(id, title, type, gender, price);
+                watch = new Watch(id, title, type, gender, price);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return watches;
+        return watch;
     }
 
-    public List < Watches > selectAllWatches() {
+    public List < Watch > selectAllWatch() {
 
         // using try-with-resources to avoid closing resources (boiler plate code)
-        List< Watches > watches = new ArrayList< >();
+        List< Watch > watch = new ArrayList<>();
         // Step 1: Establishing a Connection
         try (Connection connection = createConnection();
 
              // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_WATCHES);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_WATCH);) {
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -85,33 +87,33 @@ public class WatchesDAO {
                 String type = rs.getString("type");
                 String gender = rs.getString("gender");
                 int price = rs.getInt("price");
-                watches.add(new Watches(id, title, type, gender, price));
+                watch.add(new Watch(id, title, type, gender, price));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return watches;
+        return watch;
     }
 
-    public boolean deleteWatches(int id) throws SQLException {
+    public boolean deleteWatch(int id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = createConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_WATCHES_SQL);) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_WATCH_SQL);) {
             statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
     }
 
-    public boolean updateWatches(Watches watches) throws SQLException {
+    public boolean updateWatch(Watch watch) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = createConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_WATCHES_SQL);) {
-            statement.setString(1, watches.getTitle());
-            statement.setString(2, watches.getType());
-            statement.setString(3, watches.getGender());
-            statement.setInt(4, watches.getPrice());
-            statement.setInt(5, watches.getId());
+             PreparedStatement statement = connection.prepareStatement(UPDATE_WATCH_SQL);) {
+            statement.setString(1, watch.getTitle());
+            statement.setString(2, watch.getType());
+            statement.setString(3, watch.getGender());
+            statement.setInt(4, watch.getPrice());
+            statement.setInt(5, watch.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
         }
