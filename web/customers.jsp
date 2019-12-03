@@ -11,7 +11,7 @@
     <title>Customers</title>
 </head>
 <body>
-    <jsp:useBean id="customersBean" class="Beans.CustomersBean" scope="session"/>
+    <jsp:useBean id="customersBean" class="Beans.UsersBean" scope="session"/>
     <jsp:setProperty name="customersBean" property="username" />
     <h1>Hello, <jsp:getProperty name="customersBean" property="username"/>!</h1>
 

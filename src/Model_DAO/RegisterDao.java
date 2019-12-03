@@ -1,6 +1,6 @@
 package Model_DAO;
 
-import Beans.CustomersBean;
+import Beans.UsersBean;
 import Database.DBConnection;
 
 import java.sql.Connection;
@@ -8,12 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegisterDao {
-    public String registerUser(CustomersBean customersBean) {
-        String username = customersBean.getUsername();
-        String surname = customersBean.getSurname();
-        String email = customersBean.getEmail();
-        String login = customersBean.getLogin();
-        String password = customersBean.getPassword();
+    public String registerUser(UsersBean usersBean) {
+        String username = usersBean.getUsername();
+        String surname = usersBean.getSurname();
+        String email = usersBean.getEmail();
+        String login = usersBean.getLogin();
+        String password = usersBean.getPassword();
+
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -30,6 +31,7 @@ public class RegisterDao {
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, login);
             preparedStatement.setString(5, password);
+
 
             int i = preparedStatement.executeUpdate();
 

@@ -18,7 +18,6 @@ public class WatchDAO {
     Connection connection = null;
 
     private static final String INSERT_WATCH_SQL = "insert into watch (title, type, gender, price) values (?, ?, ?, ?);";
-
     private static final String SELECT_WATCH_BY_ID = "select id, title, type, gender, price from watch where id = ?";
     private static final String SELECT_ALL_WATCH = "select * from watch";
     private static final String DELETE_WATCH_SQL = "delete from watch where id = ?;";

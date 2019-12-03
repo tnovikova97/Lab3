@@ -1,6 +1,6 @@
 package Utils;
 
-import Beans.CustomersBean;
+import Beans.UsersBean;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
@@ -21,19 +21,19 @@ public class MyUtils {
     }
 
     // сохраняем информацию пользователя, который вошел в систему (login) в session
-    public static void storeLoginedUser(HttpSession session, CustomersBean loginedUser) {
+    public static void storeLoginedUser(HttpSession session, UsersBean loginedUser) {
         // в jsp можно получить доступ через ${loginedUser}
         session.setAttribute("loginedUser", loginedUser);
     }
 
     // получаем информацию пользователя, сохраненную в session
-    public static CustomersBean getLoginedUser(HttpSession session){
-        CustomersBean loginedUser = (CustomersBean)session.getAttribute("loginedUser");
+    public static UsersBean getLoginedUser(HttpSession session){
+        UsersBean loginedUser = (UsersBean)session.getAttribute("loginedUser");
         return loginedUser;
     }
 
     // сохраняем информацию пользователя в cookie
-    public static void storeUserCookie(HttpServletResponse response, CustomersBean user) {
+    public static void storeUserCookie(HttpServletResponse response, UsersBean user) {
         System.out.println("Store user cookie");
         Cookie cookieUsername = new Cookie(ATT_NAME_USER_NAME, user.getUsername());
         // 1 день (в секундах)

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import Beans.CustomersBean;
+import Beans.UsersBean;
 import Model_DAO.RegisterDao;
 
 
@@ -23,19 +23,19 @@ public class registrationServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        CustomersBean customersBean = new CustomersBean();
+        UsersBean usersBean = new UsersBean();
         // используем Java Beans - простой способ дествовать с группой связанных данных
-        customersBean.setUsername(username);
-        customersBean.setSurname(surname);
-        customersBean.setEmail(email);
-        customersBean.setLogin(login);
-        customersBean.setPassword(password);
+        usersBean.setUsername(username);
+        usersBean.setSurname(surname);
+        usersBean.setEmail(email);
+        usersBean.setLogin(login);
+        usersBean.setPassword(password);
 
         RegisterDao registerDAO = new RegisterDao();
 
         // здесь присутствует базовая логика регистрационного приложения.
         // Мы собираемся вставить пользовательские данные в базу данных.
-        String userRegistered = registerDAO.registerUser(customersBean);
+        String userRegistered = registerDAO.registerUser(usersBean);
 
         if (userRegistered.equals("success"))
             // В случае успеха перенапрявляем пользователя на страницу home.jsp
@@ -52,6 +52,7 @@ public class registrationServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF8");
         doGet(request, response);
     }
 }

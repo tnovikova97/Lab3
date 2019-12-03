@@ -20,7 +20,7 @@ public class logoutServlet extends HttpServlet {
             //Если сессия не нулевая
         {
             session.invalidate();
-            //удаляет все атрибуты сеанса, связанные с сеансом
+            //удаляет все атрибуты сеанса, связанные с сессией
             request.setAttribute("errMessage", "You have logged out successfully");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.html");
             requestDispatcher.forward(request, response);

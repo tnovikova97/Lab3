@@ -27,6 +27,7 @@ public class watchServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Мы в здеся");
         String action = request.getServletPath();
 
         try {
@@ -53,7 +54,6 @@ public class watchServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
-
     }
 
     private void listWatch(HttpServletRequest request, HttpServletResponse response)
@@ -109,4 +109,5 @@ public class watchServlet extends HttpServlet {
         watchDAO.deleteWatch(id);
         response.sendRedirect("list");
     }
+
 }
