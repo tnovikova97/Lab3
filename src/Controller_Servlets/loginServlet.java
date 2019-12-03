@@ -63,7 +63,7 @@ public class loginServlet extends HttpServlet {
                 //setting session attribute
                 request.setAttribute("login_temp", login);
 
-                request.getRequestDispatcher("watch-list.jsp").forward(request, response);
+                request.getRequestDispatcher("/watchServlet").forward(request, response);
             }
             else if (userValidate.equals("Editor_role"))
             {
@@ -73,7 +73,7 @@ public class loginServlet extends HttpServlet {
                 session.setAttribute("editor", login);
                 request.setAttribute("login_temp", login);
 
-                request.getRequestDispatcher("watch-list.jsp").forward(request, response);
+                request.getRequestDispatcher("/watchServlet").forward(request, response);
             }
             else if (userValidate.equals("User_role"))
             {
@@ -84,7 +84,7 @@ public class loginServlet extends HttpServlet {
                 session.setAttribute("user", login);
                 request.setAttribute("login_temp", login);
 
-                request.getRequestDispatcher("watch-list.jsp").forward(request, response);
+                request.getRequestDispatcher("/watchServlet").forward(request, response);
             }
             else {
                 System.out.println("Error message = " + userValidate);

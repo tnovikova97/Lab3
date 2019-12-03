@@ -15,29 +15,29 @@
 <body>
 
 <center>
-    <h1>Watch Management</h1>
+    <h1>Управление продукцией</h1>
     <h2>
-        <a href="new">Add New Watch</a>
+        <a href="new">Добавить новые часы</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="list">List All Watch</a>
+        <a href="list">Список всех часов</a>
 
     </h2>
 </center>
 <div align="center">
     <c:if test="${watch != null}">
-    <form action="update" method="post">
+    <form action="update" method="get">
         </c:if>
         <c:if test="${watch == null}">
-        <form action="insert" method="post">
+        <form action="insert" method="get">
             </c:if>
             <table border="1" cellpadding="5">
                 <caption>
                     <h2>
                         <c:if test="${watch != null}">
-                            Edit watches
+                            Редактировать часы
                         </c:if>
                         <c:if test="${watch == null}">
-                            Add New watches
+                           Добавить новые часы
                         </c:if>
                     </h2>
                 </caption>
@@ -45,7 +45,7 @@
                     <input type="hidden" name="id" value="<c:out value='${watch.id}' />" />
                 </c:if>
                 <tr>
-                    <th>watch title: </th>
+                    <th>Название часов: </th>
                     <td>
                         <input type="text" name="title" size="45"
                                value="<c:out value='${watch.title}' />" required
@@ -53,7 +53,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>watch type: </th>
+                    <th>Тип часов: </th>
                     <td>
                         <input type="text" name="type" size="45"
                                value="<c:out value='${watch.type}' />" required
@@ -61,7 +61,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>watch gender: </th>
+                    <th>Пол: </th>
                     <td>
 
                         <select name="gender" required >
@@ -75,7 +75,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>watch price: </th>
+                    <th>Цена: </th>
                     <td>
                         <input type="number" name="price" size="15" required
                                value="<c:out value='${watch.price}' />"

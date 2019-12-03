@@ -18,37 +18,45 @@
 <center>
 <h1>Watch Management</h1>
 <h2>
-    <a href="new">Add new watch</a>
+    <a href="new">Добавить новые часы</a>
     &nbsp;&nbsp;&nbsp;
-    <a href="list"> List all watch</a>
+    <a href="list">Просмотр всех часов</a>
 </h2>
 </center>
 <div align="center">
 
     <table border="1" cellpadding="6">
         <%request.getParameter("item");%>
+
         <caption>
-            <h2>List of Watch</h2>
+            <h2>Список часов</h2>
         </caption>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Gender</th>
-                <th>Price</th>
-                <th>Actions</th>
+<%--                <th>Id</th>--%>
+                <th>Название</th>
+                <th>Тип</th>
+                <th>Пол</th>
+                <th>Цена</th>
+                <th>Действия</th>
             </tr>
             <c:forEach var="watch" items="${listWatch}">
                 <tr>
-                    <td><c:out value="${watch.id}"/></td>
+<%--                    <td><c:out value="${watch.id}" /></td>--%>
                     <td><c:out value="${watch.title}"/></td>
                     <td><c:out value="${watch.type}"/></td>
                     <td><c:out value="${watch.gender}"/></td>
                     <td><c:out value="${watch.price}"/></td>
                     <td>
-                        <a href="edit?id=<c:out value='${watch.id}'/>">Edit</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="delete?id=<c:out value='${watch.id}' />">Delete</a>
+
+                  
+
+                        <c:if test="${admin}">
+
+                        </c:if>
+
+
+                        <a href="edit?id=<c:out value='${watch.id}'/>">Редактировать</a>&nbsp;&nbsp;
+                        <a href="delete?id=<c:out value='${watch.id}' />">Удалить</a>
                     </td>
                 </tr>
             </c:forEach>
