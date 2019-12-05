@@ -22,6 +22,7 @@ public class WatchDAO {
     private static final String SELECT_ALL_WATCH = "select * from watch";
     private static final String DELETE_WATCH_SQL = "delete from watch where id = ?;";
     private static final String UPDATE_WATCH_SQL = "update watch set title = ?, type = ?, gender = ?, price = ? where id = ?;";
+    private static final String RESEARCH_WATCH = "select id, title, type, gender, price from watch where title = ?;";
 
     public WatchDAO() {}
 
@@ -103,6 +104,18 @@ public class WatchDAO {
         }
         return rowDeleted;
     }
+
+
+    public void delete(int id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from watch where id = ?;");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public boolean updateWatch(Watch watch) throws SQLException {
         boolean rowUpdated;

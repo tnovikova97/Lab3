@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %><%--
   Created by IntelliJ IDEA.
   User: Татьяна
   Date: 16.11.2019
@@ -16,7 +17,7 @@
 <body>
 
 <center>
-<h1>Watch Management</h1>
+<h1>Управление продукцией</h1>
 <h2>
     <a href="new">Добавить новые часы</a>
     &nbsp;&nbsp;&nbsp;
@@ -45,7 +46,7 @@
                     <td><c:out value="${watch.title}"/></td>
                     <td><c:out value="${watch.type}"/></td>
                     <td><c:out value="${watch.gender}"/></td>
-                    <td><c:out value="${watch.price}"/></td>
+                    <td><c:out value="${watch.price}"/> руб.</td>
                     <td>
 
                   
@@ -61,6 +62,7 @@
                 </tr>
             </c:forEach>
     </table>
+
 </div>
 
 

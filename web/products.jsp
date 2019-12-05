@@ -6,78 +6,70 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/feedback.css"/>
+
 </head>
 <body>
 
-<section class="header-section">
-    <!--    header-->
-    <div class="header-top">
-        <div class="container">
-            <div class="row">
-                <div class="logo">
-                    <a href="./index.html" class="site-logo">
-                        <img src="img/logo.png">
-                    </a>
-                </div>
-                <div class="user-panel">
-                    <div class="login">
-                        <div class="button-reg "><a href="logoutServlet"><span>Выйти</span></a></div>
-                    </div>
-                </div>
-            </div>
+        <div style="text-align: center; font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a"> Здравствуйте <%=request.getAttribute("login_temp") %> !</div>
+
+
+
+        <%--<%@include file="_menu.jsp"%>--%>
+        <center>
+            <h1 style="font-size: 20px; font-weight: bold; text-transform: uppercase">Управление продукцией</h1>
+            <h2>
+                <a href="new">Добавить новые часы</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="list">Просмотр всех часов</a>
+            </h2>
+        </center>
+        <div align="center">
+
+            <table border="1" cellpadding="6">
+                <%request.getParameter("item");%>
+
+                <caption>
+                    <h2>Список часов</h2>
+                </caption>
+                <tr>
+                    <%--                <th>Id</th>--%>
+                    <th>Название</th>
+                    <th>Тип</th>
+                    <th>Пол</th>
+                    <th>Цена</th>
+                    <th colspan="2">Действия</th>
+
+                    <c:forEach var="watch" items="${listWatch}">
+                <tr>
+                        <%--                    <td><c:out value="${watch.id}" /></td>--%>
+                    <td><c:out value="${watch.title}"/></td>
+                    <td><c:out value="${watch.type}"/></td>
+                    <td><c:out value="${watch.gender}"/></td>
+                    <td><c:out value="${watch.price}"/></td>
+
+
+
+                        <%--                            <c:if test="${session == 'admin'}">--%>
+
+                    <td>    <a href="watchController?action=edit&id=<c:out value='${watch.id}'/>">Редактировать</a></td>
+                        <%--                                <a href="edit?id=<c:out value='${watch.id}'/>">Редактировать</a>&nbsp;&nbsp;--%>
+
+
+
+
+                    <td> <a href="delete&id=<c:out value='${watch.id}' />">Удалить</a></td>
+                    </td>
+                </tr>
+                </c:forEach>
+                </tr>
+            </table>
         </div>
-    </div>
-    <!--            menu-->
-    <nav class="main-navbar">
-        <div class="container">
-            <ul class="main-menu">
-                <li><a href="#">Главная</a></li>
-                <li><a href="#products">Украшения</a>
-                    <ul class="sub-menu">
-                        <li><a href="#">Серьги</a></li>
-                        <li><a href="#">Подвески</a></li>
-                        <li><a href="#">Кольца</a></li>
-                        <li><a href="#">Браслеты</a></li>
-                        <li><a href="#">Часы</a></li>
-                    </ul>
-                </li>
-                <li><a href="#photo">Фотографии</a></li>
-                <li><a href="feedback-page.html">Отзывы</a></li>
-                <li><a href="#">Полезная информация</a></li>
-                <li><a href="#">О компании</a></li>
-                <button onclick="RandomTip()" class="tip_of_the_day-button js-btn-totd"><span> Совет дня </span>
-                </button>
 
-            </ul>
-        </div>
-    </nav>
-</section>
-
-<div class="feedback-page">
-
-    <div class="feedback-page">
-        <div style="text-align: center; font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: #1a1a1a"> Здравствуйте <%=request.getAttribute("login") %> !</div>
-
-    </div>
-
-    <form action="watch-list.jsp">
-        <select name="item">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-        <input type="submit" value="Submit">
-    </form>
-
-
-
-
-</div>
 
 
 

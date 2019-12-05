@@ -53,11 +53,18 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Тип часов: </th>
+                    <th>Тип механизма: </th>
                     <td>
-                        <input type="text" name="type" size="45"
-                               value="<c:out value='${watch.type}' />" required
-                        />
+<%--                        <input type="text" name="type" size="45"--%>
+<%--                               value="<c:out value='${watch.type}' />" required--%>
+<%--                        />--%>
+
+                        <select name="type" required>
+                            <option>Кварцевый (электромеханический)</option>
+                            <option>Электронный</option>
+                            <option>Механический</option>
+                        </select>
+
                     </td>
                 </tr>
                 <tr>
@@ -65,9 +72,9 @@
                     <td>
 
                         <select name="gender" required >
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Universal</option>
+                            <option>Женские</option>
+                            <option>Мужские</option>
+                            <option>Универсальные</option>
                         </select>
 
 <%--                        <input type="text" name="gender" size="15"--%>
