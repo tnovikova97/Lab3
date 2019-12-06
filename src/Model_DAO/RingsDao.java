@@ -3,39 +3,38 @@ package Model_DAO;
 import Beans.Rings;
 import Database.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Database.DBConnection.createConnection;
 
 public class RingsDao {
 
     private Connection connection;
 
-    private static final String INSERT_RINGS = "insert into rings (name, brand, metal, vstavka, proba, size, prise) values (?, ?, ?, ?, ?, ?, ?);";
-    private static final String SELECT_RINGS_BY_ID = "select id, title, type, gender, price from watch where id = ?";
-    private static final String SELECT_ALL_RINGS = "select * from watch";
+    private static final String INSERT_RINGS = "insert into rings (title, brand, metal, vstavka, proba, size, prise) values (?, ?, ?, ?, ?, ?, ?);";
+    private static final String SELECT_RINGS_BY_ID = "select id, title, brand, metal, vstavka, proba, size, prise from rings where id = ?";
+    private static final String SELECT_ALL_RINGS = "select * from rings";
     private static final String DELETE_RINGS = "delete from rings where id = ?;";
-    private static final String UPDATE_RINGS = "update rings set name = ?, brand = ?, metal = ?, vstavka = ?, proba = ?, size = ?, prise = ? where id = ?;";
+    private static final String UPDATE_RINGS = "update rings set title = ?, brand = ?, metal = ?, vstavka = ?, proba = ?, size = ?, prise = ? where id = ?;";
 
 
     public RingsDao () {
-        connection = DBConnection.createConnection();
+        connection = createConnection();
     }
 
     public void addRing (Rings rings) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_RINGS);
             // Parameters start with 1
-            preparedStatement.setString(1, rings.getName());
+            preparedStatement.setString(1, rings.getTitle());
             preparedStatement.setString(2, rings.getBrand());
             preparedStatement.setString(3, rings.getMetal());
             preparedStatement.setString(4, rings.getVstavka());
             preparedStatement.setInt(5, rings.getProba());
             preparedStatement.setFloat(6, rings.getSize());
-            preparedStatement.setInt(7, rings.getPrice());
+            preparedStatement.setInt(7, rings.getPrise());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,40 +55,73 @@ public class RingsDao {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_RINGS);
             // parameters start with 1
-            preparedStatement.setString(1, rings.getName());
+            preparedStatement.setString(1, rings.getTitle());
             preparedStatement.setString(2, rings.getBrand());
             preparedStatement.setString(3, rings.getMetal());
             preparedStatement.setInt(4, rings.getProba());
             preparedStatement.setFloat(5, rings.getSize());
-            preparedStatement.setInt(6, rings.getPrice());
+            preparedStatement.setInt(6, rings.getPrise());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<Rings> getAllRing() {
-        List<Rings> rings = new ArrayList<Rings>();
+    public ArrayList<Rings> getAllRing() {
+        ArrayList<Rings> ring = new ArrayList<Rings>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_RINGS);
             while (resultSet.next()) {
-                Rings rings1 = new Rings();
-                rings1.setId(resultSet.getInt("id"));
-                rings1.setName(resultSet.getString("name"));
-                rings1.setBrand(resultSet.getString("brand"));
-                rings1.setMetal(resultSet.getString("metal"));
-                rings1.setVstavka(resultSet.getString("vstavka"));
-                rings1.setProba(resultSet.getInt("proba"));
-                rings1.setSize(resultSet.getFloat("size"));
-                rings1.setPrice(resultSet.getInt("prise"));
-                rings.add(rings1);
+                Rings rings = new Rings();
+                rings.setId(resultSet.getInt("id"));
+                rings.setTitle(resultSet.getString("title"));
+                rings.setBrand(resultSet.getString("brand"));
+                rings.setMetal(resultSet.getString("metal"));
+                rings.setVstavka(resultSet.getString("vstavka"));
+                rings.setProba(resultSet.getInt("proba"));
+                rings.setSize(resultSet.getFloat("size"));
+                rings.setPrise(resultSet.getInt("prise"));
+                ring.add(rings);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rings;
+        return ring;
     }
+
+
+//    public List < Rings > getAllRing() {
+//
+//        // using try-with-resources to avoid closing resources (boiler plate code)
+//        List< Rings > rings = new ArrayList<>();
+//        // Step 1: Establishing a Connection
+//        try (Connection connection = createConnection();
+//
+//             // Step 2:Create a statement using connection object
+//             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RINGS);) {
+//            System.out.println(preparedStatement);
+//            // Step 3: Execute the query or update query
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            // Step 4: Process the ResultSet object.
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String title = rs.getString("title");
+//                String brand = rs.getString("brand");
+//                String metal = rs.getString("metal");
+//                String vstavka = rs.getString("vstavka");
+//                int proba = rs.getInt("proba");
+//                float size = rs.getFloat("size");
+//                int prise = rs.getInt("prise");
+//
+//                rings.add(new Rings(id, title, brand, metal, vstavka, proba, size, prise));
+//            }
+//        } catch (SQLException e) {
+//            printSQLException(e);
+//        }
+//        return rings;
+//    }
 
     public Rings getRingById (int id) {
         Rings rings = new Rings();
@@ -100,18 +132,34 @@ public class RingsDao {
 
             if (resultSet.next()) {
                 rings.setId(resultSet.getInt("id"));
-                rings.setName(resultSet.getString("name"));
+                rings.setTitle(resultSet.getString("title"));
                 rings.setBrand(resultSet.getString("brand"));
                 rings.setMetal(resultSet.getString("metal"));
                 rings.setVstavka(resultSet.getString("vstavka"));
                 rings.setProba(resultSet.getInt("proba"));
                 rings.setSize(resultSet.getFloat("size"));
-                rings.setPrice(resultSet.getInt("prise"));
+                rings.setPrise(resultSet.getInt("prise"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return rings;
     }
+
+//    private void printSQLException(SQLException ex) {
+//        for (Throwable e: ex) {
+//            if (e instanceof SQLException) {
+//                e.printStackTrace(System.err);
+//                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+//                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+//                System.err.println("Message: " + e.getMessage());
+//                Throwable t = ex.getCause();
+//                while (t != null) {
+//                    System.out.println("Cause: " + t);
+//                    t = t.getCause();
+//                }
+//            }
+//        }
+//    }
 
 }

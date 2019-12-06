@@ -33,14 +33,17 @@ public class ringsServlet extends HttpServlet {
             ringsDao.deleteRing(id);
             forward = LIST_RINGS;
             request.setAttribute("rings", ringsDao.getAllRing());
+            System.out.println("удалить могу");
         } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
             int id = Integer.parseInt(request.getParameter("id"));
             Rings rings = ringsDao.getRingById(id);
             request.setAttribute("rings", rings);
+            System.out.println("редактировать могу");
         } else if (action.equalsIgnoreCase("listRings")) {
             forward = LIST_RINGS;
             request.setAttribute("rings", ringsDao.getAllRing());
+            System.out.println("YA rabooooooootaaaayuuuu");
         } else {
             forward = INSERT_OR_EDIT;
         }
@@ -55,13 +58,13 @@ public class ringsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF8");
 
         Rings rings = new Rings();
-        rings.setName(request.getParameter("name"));
-        rings.setBrand(request.getParameter("brand"));
+        rings.setTitle(request.getParameter("title"));
+//        rings.setBrand(request.getParameter("brand"));
         rings.setMetal(request.getParameter("metal"));
         rings.setVstavka(request.getParameter("vstavka"));
         rings.setProba(Integer.parseInt(request.getParameter("proba")));
         rings.setSize(Float.parseFloat(request.getParameter("size")));
-        rings.setPrice(Integer.parseInt(request.getParameter("prise")));
+        rings.setPrise(Integer.parseInt(request.getParameter("prise")));
         String id = request.getParameter("id");
         if (id == null || id.isEmpty()) {
             ringsDao.addRing(rings);
@@ -72,7 +75,7 @@ public class ringsServlet extends HttpServlet {
         }
 
         RequestDispatcher view = request.getRequestDispatcher(LIST_RINGS);
-        request.setAttribute("rings1", ringsDao.getAllRing());
+        request.setAttribute("rings", ringsDao.getAllRing());
         view.forward(request, response);
     }
 }

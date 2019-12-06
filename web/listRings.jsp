@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false"%>
 <%--
   Created by IntelliJ IDEA.
   User: Татьяна
@@ -14,10 +15,11 @@
 <body>
 
 <table border="1">
+    <%request.getParameter("item");%>
     <thead>
     <tr>
         <th>ID</th>
-        <th>name</th>
+        <th>title</th>
         <th>brand</th>
         <th>metal</th>
         <th>vstavka</th>
@@ -31,7 +33,7 @@
     <c:forEach items="${rings}" var="ring">
         <tr>
             <td><c:out value="${ring.id}"/></td>
-            <td><c:out value="${ring.name}"/></td>
+            <td><c:out value="${ring.title}"/></td>
             <td><c:out value="${ring.brand}"/></td>
             <td><c:out value="${ring.metal}"/></td>
             <td><c:out value="${ring.vstavka}"/></td>

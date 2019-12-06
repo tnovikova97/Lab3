@@ -3,13 +3,38 @@ package Beans;
 public class Rings {
 
     private int id;
-    private String name;
+    private String title;
     private String brand;
     private String metal;
     private String vstavka;
     private int proba;
     private float size;
-    private int price;
+    private int prise;
+
+    public Rings() {}
+
+    public Rings (String title, String brand, String metal, String vstavka, int proba, float size, int prise) {
+        super();
+        this.title = title;
+        this.brand = brand;
+        this.metal = metal;
+        this.vstavka = vstavka;
+        this.proba = proba;
+        this.size = size;
+        this.prise = prise;
+    }
+
+    public Rings(int id, String title, String brand, String metal, String vstavka, int proba, float size, int prise) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.brand = brand;
+        this.metal = metal;
+        this.vstavka = vstavka;
+        this.proba = proba;
+        this.size = size;
+        this.prise = prise;
+    }
 
     public int getId() {
         return id;
@@ -19,12 +44,12 @@ public class Rings {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getBrand() {
@@ -67,19 +92,19 @@ public class Rings {
         this.size = size;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPrise() {
+        return prise;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrise(int prise) {
+        this.prise = prise;
     }
 
     @Override
     public String toString() {
-        return "Ring [id = " + id + ", name = " + name + ", brand = "
+        return "Ring [id = " + id + ", title = " + title + ", brand = "
                 + brand + ", metal = " + metal + ", vstavka = " + vstavka
                 + ", proba = " + proba + ", size = " + size + ", price = "
-                + price + "]";
+                + prise + "]";
     }
 }

@@ -14,11 +14,10 @@
 <body>
 
 <form method="post" action="ringsServlet" name="formAddRings">
-
 <%--    ID: <input type="text" name="id"--%>
 <%--               value="<c:out value="${ring.id}"/>" readonly="readonly" required />--%>
-    Name: <input type="text" name="name"
-                 value="<c:out value="${ring.name}"/>" required/>
+    Name: <input type="text" name="title"
+                 value="<c:out value="${ring.title}"/>" required/>
     Brand: <input type="text" name="brand"
                   value="<c:out value="${ring.brand}"/>" required/>
     Metal: <input type="text" name="metal"
@@ -33,6 +32,7 @@
                   value="<c:out value="${ring.prise}"/>" required />
     <input type="submit" value="Отправить" />
 </form>
+
 
 </body>
 </html>
