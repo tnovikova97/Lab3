@@ -7,47 +7,69 @@
   Time: 17:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Show All Rings</title>
 </head>
 <body>
+<%@include file="_header.jsp"%>
+<%@include file="_menu.jsp"%>
 
-<table border="1">
-    <%request.getParameter("item");%>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>title</th>
-        <th>brand</th>
-        <th>metal</th>
-        <th>vstavka</th>
-        <th>proba</th>
-        <th>size</th>
-        <th>price</th>
-        <th colspan="2">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${rings}" var="ring">
+<div class="container">
+    <div style="display: flex;
+                                      flex-direction: column;
+                                      justify-items: center;
+                                      justify-content: center;">
+
+        <%request.getParameter("item");%>
+        <div style="display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;">
+            <div>
+                <p><a href="ringsServlet?action=insert"><span style="color: blue">Добавить новое кольцо</span> </a> </p>
+            </div>
+            <div>
+                <p><a href="ringsServlet?action=listRings"><span style="color: blue">Посмотреть все кольца</span> </a> </p>
+            </div>
+
+        </div>
+        <table border="1">
+
+        <thead>
         <tr>
-            <td><c:out value="${ring.id}"/></td>
-            <td><c:out value="${ring.title}"/></td>
-            <td><c:out value="${ring.brand}"/></td>
-            <td><c:out value="${ring.metal}"/></td>
-            <td><c:out value="${ring.vstavka}"/></td>
-            <td><c:out value="${ring.proba}"/></td>
-            <td><c:out value="${ring.size}"/></td>
-            <td><c:out value="${ring.prise}"/></td>
-            <td><a href="ringsServlet?action=edit&id=<c:out value="${ring.id}"/>">Update</a> </td>
-            <td><a href="ringsServlet?action=delete&id=<c:out value="${ring.id}"/>">Delete</a> </td>
+<%--            <th>ID</th>--%>
+            <th>Название</th>
+            <th>Бренд</th>
+            <th>Металл</th>
+            <th>Вставка</th>
+            <th>Проба</th>
+            <th>Размер</th>
+            <th>Цена</th>
+            <th colspan="2">Действия</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach items="${rings}" var="ring">
+            <tr>
+<%--                <td><c:out value="${ring.id}"/></td>--%>
+                <td><c:out value="${ring.title}"/></td>
+                <td><c:out value="${ring.brand}"/></td>
+                <td><c:out value="${ring.metal}"/></td>
+                <td><c:out value="${ring.vstavka}"/></td>
+                <td><c:out value="${ring.proba}"/></td>
+                <td><c:out value="${ring.size}"/></td>
+                <td><c:out value="${ring.prise}"/> руб.</td>
+                <td><a href="ringsServlet?action=edit&id=<c:out value="${ring.id}"/>"><span style="color: blue">Обновить</span> </a> </td>
+                <td><a href="ringsServlet?action=delete&id=<c:out value="${ring.id}"/>"><span style="color: blue">Удалить</span></a> </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    </div>
 
-<p><a href="ringsServlet?action=insert">Add Ring</a> </p>
 
+
+</div>
 </body>
 </html>

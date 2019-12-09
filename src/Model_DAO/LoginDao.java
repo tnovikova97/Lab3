@@ -40,7 +40,7 @@ public class LoginDao {
 
                 if (login.equals(loginDB) && password.equals(passwordDB) && roleDB.equals("admin"))
                 return "Admin_role";
-                else if (login.equals(loginDB) && password.equals(passwordDB) && roleDB.equals("editor"))
+                else if (login.equals(loginDB) && password.equals(passwordDB) && roleDB.isEmpty())
                 return "Editor_role";
                 else
                     if (login.equals(loginDB) && password.equals(passwordDB) && roleDB.equals("user"))

@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/ringsServlet")
 public class ringsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static String INSERT_OR_EDIT = "/rings.jsp";
+    private static String INSERT_OR_EDIT = "/ringsInsertUpdate.jsp";
     private static String LIST_RINGS = "/listRings.jsp";
     private RingsDao ringsDao;
 
@@ -59,7 +59,7 @@ public class ringsServlet extends HttpServlet {
 
         Rings rings = new Rings();
         rings.setTitle(request.getParameter("title"));
-//        rings.setBrand(request.getParameter("brand"));
+        rings.setBrand(request.getParameter("brand"));
         rings.setMetal(request.getParameter("metal"));
         rings.setVstavka(request.getParameter("vstavka"));
         rings.setProba(Integer.parseInt(request.getParameter("proba")));

@@ -13,6 +13,10 @@
 </head>
 <body>
 
+<%@include file="_header.jsp"%>
+<%@include file="_menu.jsp"%>
+
+<div class="container">
 <form method="post" action="ringsServlet" name="formAddRings">
 <%--    ID: <input type="text" name="id"--%>
 <%--               value="<c:out value="${ring.id}"/>" readonly="readonly" required />--%>
@@ -33,6 +37,7 @@
     <input type="submit" value="Отправить" />
 </form>
 
+</div>
 
 </body>
 </html>

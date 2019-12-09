@@ -5,12 +5,15 @@
   Time: 19:54
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Error</title>
 </head>
 <body>
+
+<%@include file="_header.jsp"%>
+<%@include file="_menu.jsp"%>
 
 <h1>Ошибка! Вы не были зарегистрированы!</h1>
 
@@ -19,5 +22,6 @@
 
 <b>Вернуться на <a href="index.html">Главную страницу</a> для повторной регистрации.</b>
 
+<%@include file="_footer.jsp"%>
 </body>
 </html>

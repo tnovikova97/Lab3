@@ -13,6 +13,8 @@
     <title>Products Management Application</title>
 </head>
 <body>
+<%@ include file="_header.jsp"%>
+<%@include file="_menu.jsp"%>
 
 <center>
     <h1>Управление продукцией</h1>

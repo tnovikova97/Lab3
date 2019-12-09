@@ -47,7 +47,7 @@ public class watchController extends HttpServlet {
             System.out.println("смотрим с помощью watchController");
         }
         else {
-            forward = LIST_WATCH;
+            forward = INSERT_OR_EDIT;
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(forward);

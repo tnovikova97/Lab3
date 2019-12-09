@@ -18,6 +18,7 @@ public class RingsDao {
     private static final String SELECT_ALL_RINGS = "select * from rings";
     private static final String DELETE_RINGS = "delete from rings where id = ?;";
     private static final String UPDATE_RINGS = "update rings set title = ?, brand = ?, metal = ?, vstavka = ?, proba = ?, size = ?, prise = ? where id = ?;";
+//    private static final String FIND_RINGS = "select * from rings where title = '" +title+ "' order by id;";
 
 
     public RingsDao () {
@@ -58,9 +59,11 @@ public class RingsDao {
             preparedStatement.setString(1, rings.getTitle());
             preparedStatement.setString(2, rings.getBrand());
             preparedStatement.setString(3, rings.getMetal());
-            preparedStatement.setInt(4, rings.getProba());
-            preparedStatement.setFloat(5, rings.getSize());
-            preparedStatement.setInt(6, rings.getPrise());
+            preparedStatement.setString(4, rings.getVstavka());
+            preparedStatement.setInt(5, rings.getProba());
+            preparedStatement.setFloat(6, rings.getSize());
+            preparedStatement.setInt(7, rings.getPrise());
+            preparedStatement.setInt(8, rings.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,6 +148,42 @@ public class RingsDao {
         }
         return rings;
     }
+
+    public static ArrayList<Rings> searchRing(String title) {
+        ArrayList<Rings> rings = new ArrayList<>();
+        String query = null;
+        if (title!=null){
+            query = "select * from rings where title = '" +title+ "' order by id;";
+        }
+        else {
+            query = SELECT_ALL_RINGS;
+        }
+
+        try {
+            Connection connection = createConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String title1 = resultSet.getString("title");
+                String brand = resultSet.getString("brand");
+                String metal = resultSet.getString("metal");
+                String vstavka = resultSet.getString("vstavka");
+                int proba = resultSet.getInt("proba");
+                float size = resultSet.getFloat("size");
+                int prise = resultSet.getInt("prise");
+                Rings rings1 = new Rings(id, title1, brand, metal, vstavka, proba, size, prise);
+                rings.add(rings1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rings;
+    }
+
+
+
 
 //    private void printSQLException(SQLException ex) {
 //        for (Throwable e: ex) {
