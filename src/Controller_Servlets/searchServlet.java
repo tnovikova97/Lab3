@@ -12,16 +12,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/searchServlet")
+// Наследуем класс от HttpServlet и переопределяем метод doGet();
 public class searchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
         try {
-            // Получение названия = параметра поиска
+            // Получение из запроса значения параметра. Наименование параметра определено значением name.
+            // String getParameter(String name)
+
             String title = request.getParameter("title");
-            // массив - таблица колец
-            // поиск происходит методом searchRing из RingsDao
+
+            // массив (список) - таблица колец
+            // поиск происходит функцией searchRing из RingsDao
             ArrayList<Rings> rings = RingsDao.searchRing(title);
+            // условие: если список не пустой
             if (rings!= null) {
                 //передаем данные на jsp страницу
                 request.setAttribute("rings", rings);

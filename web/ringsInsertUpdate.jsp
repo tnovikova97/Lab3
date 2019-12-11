@@ -35,6 +35,7 @@
     </div>
 
 <div align="center">
+<%--    проверяем некоторое условие --%>
     <c:if test="${rings != null}">
     <form action="ringsServlet?action=edit" method="post">
         </c:if>
@@ -118,6 +119,8 @@
                             <option>9</option>
                             <option>9.5</option>
                             <option>10</option>
+                            <option>10.5</option>
+                            <option>11</option>
                         </select>
                     </td>
                 </tr>
@@ -132,7 +135,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Save" />
+                        <input type="submit" value="Сохранить" />
                     </td>
                 </tr>
             </table>

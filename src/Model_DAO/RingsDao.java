@@ -13,22 +13,24 @@ public class RingsDao {
 
     private Connection connection;
 
+    // установка запросов sql в качестве переменных
     private static final String INSERT_RINGS = "insert into rings (title, brand, metal, vstavka, proba, size, prise) values (?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_RINGS_BY_ID = "select id, title, brand, metal, vstavka, proba, size, prise from rings where id = ?";
     private static final String SELECT_ALL_RINGS = "select * from rings";
     private static final String DELETE_RINGS = "delete from rings where id = ?;";
     private static final String UPDATE_RINGS = "update rings set title = ?, brand = ?, metal = ?, vstavka = ?, proba = ?, size = ?, prise = ? where id = ?;";
-//    private static final String FIND_RINGS = "select * from rings where title = '" +title+ "' order by id;";
 
-
+    // устанавливаем соединение с БД
     public RingsDao () {
         connection = createConnection();
     }
 
+    // функция добавления колец - далее продукции
     public void addRing (Rings rings) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_RINGS);
-            // Parameters start with 1
+
+            // определяем значения параметров
             preparedStatement.setString(1, rings.getTitle());
             preparedStatement.setString(2, rings.getBrand());
             preparedStatement.setString(3, rings.getMetal());
@@ -36,12 +38,14 @@ public class RingsDao {
             preparedStatement.setInt(5, rings.getProba());
             preparedStatement.setFloat(6, rings.getSize());
             preparedStatement.setInt(7, rings.getPrise());
+            // изменяем строку таблицы - добавляем полученные значения
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // удаление продукции по id
     public void deleteRing (int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_RINGS);
@@ -52,6 +56,7 @@ public class RingsDao {
         }
     }
 
+    // редактирование продукции по id
     public void updateRing (Rings rings) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_RINGS);
@@ -70,7 +75,9 @@ public class RingsDao {
         }
     }
 
+    // показать список продукции
     public ArrayList<Rings> getAllRing() {
+        // создаем список для хранения объектов Rings
         ArrayList<Rings> ring = new ArrayList<Rings>();
         try {
             Statement statement = connection.createStatement();
@@ -92,7 +99,6 @@ public class RingsDao {
         }
         return ring;
     }
-
 
 //    public List < Rings > getAllRing() {
 //
@@ -126,6 +132,7 @@ public class RingsDao {
 //        return rings;
 //    }
 
+    // показать продукт по id
     public Rings getRingById (int id) {
         Rings rings = new Rings();
         try {
@@ -149,20 +156,36 @@ public class RingsDao {
         return rings;
     }
 
+    // функция поиска продукции по названию
+    // массив списков строк
     public static ArrayList<Rings> searchRing(String title) {
+        // создаем список для хранения объектов Rings
         ArrayList<Rings> rings = new ArrayList<>();
+        // обнуляем запрос
         String query = null;
+        // условие: если вводимое значение в поле title не равно 0
         if (title!=null){
+            // выполняем запрос выбора всей информации из таблицы по названию с сортировкой по идентификатору
             query = "select * from rings where title = '" +title+ "' order by id;";
         }
+        // иначе
         else {
+            // выполняем запрос вывода всей продукции
             query = SELECT_ALL_RINGS;
         }
 
+        // после выполнения условия описываем исключение
         try {
+            // создаем соединение с БД
             Connection connection = createConnection();
+            // создаем объект statement методом createStatement()
             Statement statement = connection.createStatement();
+            // для отправки sql-запроса для выполнения вызываем метод executeQuery объекта statement
+            // и в качестве аргумента передаем запрос
+            // все записываем в resultSet
             ResultSet resultSet = statement.executeQuery(query);
+            // создаем цикл с вызванным методом resultSet.next(), который перемещает указатель
+            // к следующей строке resultSet, делая ее текущей
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String title1 = resultSet.getString("title");
@@ -172,6 +195,7 @@ public class RingsDao {
                 int proba = resultSet.getInt("proba");
                 float size = resultSet.getFloat("size");
                 int prise = resultSet.getInt("prise");
+                // создаем новый объект в Rings
                 Rings rings1 = new Rings(id, title1, brand, metal, vstavka, proba, size, prise);
                 rings.add(rings1);
             }
@@ -181,9 +205,6 @@ public class RingsDao {
         }
         return rings;
     }
-
-
-
 
 //    private void printSQLException(SQLException ex) {
 //        for (Throwable e: ex) {

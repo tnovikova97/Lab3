@@ -19,15 +19,19 @@ public class ringsServlet extends HttpServlet {
     private RingsDao ringsDao;
 
     public ringsServlet() {
+        // обозначает суперкласс, т.е. класс, производным от которого является текущий класс
         super();
+        // создаем объект
         ringsDao = new RingsDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String forward = "";
+        // получем параметр action
         String action = request.getParameter("action");
 
+        // проверяем условия
         if (action.equalsIgnoreCase("delete")) {
             int id = Integer.parseInt(request.getParameter("id"));
             ringsDao.deleteRing(id);
@@ -79,3 +83,4 @@ public class ringsServlet extends HttpServlet {
         view.forward(request, response);
     }
 }
+

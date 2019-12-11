@@ -98,6 +98,11 @@ public class Rings {
 
     public void setPrise(int prise) {
         this.prise = prise;
+//        if (prise >= 0) {
+//            this.prise = prise;
+//        } else {
+//            System.out.println("Ошибка! Цена не может быть отрицательным числом!");
+//        }
     }
 
     @Override

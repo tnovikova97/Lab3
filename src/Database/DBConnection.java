@@ -8,20 +8,22 @@ public class DBConnection {
     public static Connection createConnection()
     {
         Connection connection = null;
+
+        // прописываем url адрес подключения к БД используя кодировку UTF8
         String url = "jdbc:postgresql://localhost:5432/jewelry?useUnicode=true&characterEncoding=utf8";
-        // URL
+        // указываем имя пользователя БД
         String username = "postgres";
-        // username
+        // указывем пароль
         String password = "0000";
-        // password
 
         try
         {
             try
             {
+                // загружаем postgree драйвер БД, драйвера различны для разных БД
+                // динамическая загрузка драйвера, который расширяет DriverManager
                 Class.forName("org.postgresql.Driver");
-                //загрузка postgre драйверов.
-                // Различны для разных БД
+
             }
             catch (ClassNotFoundException e)
             {
