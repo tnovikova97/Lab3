@@ -25,7 +25,7 @@ function identification() {
         var xmlHttp = new XMLHttpRequest();
         // xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xmlHttp.onreadystatechange = callback();
-        xmlHttp.open("GET", "http://localhost:8080/Lab2/listRings?listRings=all", true);
+        xmlHttp.open("GET", "http://localhost:8080/Lab3/listRings?listRings=all", true);
         xmlHttp.send(null);
         
         function callback() {
@@ -43,19 +43,6 @@ function identification() {
 //     }
 // }
 
-
-function getRings() {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            document.querySelector('#listR').innerHTML = request.responseText;
-        }
-    }
-
-    request.open("GET", "http://localhost:8080/Lab3/listRings?listRings=all", true);
-    request.send();
-}
-
 function ajaxGet() {
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -68,8 +55,21 @@ function ajaxGet() {
     request.send();
 }
 
+// вывод списка колец
 window.onload = function () {
     document.querySelector('#forajax').onclick = function () {
         getRings();
     }
+}
+
+function getRings() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            document.querySelector('#listR').innerHTML = request.responseText;
+        }
+    }
+
+    request.open("GET", "http://localhost:8080/Lab3/listRings?listRings=all", true);
+    request.send();
 }
