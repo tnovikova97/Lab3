@@ -4,7 +4,7 @@ function identification() {
     var password = document.getElementById("password").value;
     var message = "loginAjax=" + encodeURIComponent(login) + "&passwordAjax=" + encodeURIComponent(password);
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8080/Lab2", true);
+    xmlHttp.open("POST", "http://localhost:8080/Lab3", true);
     xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xmlHttp.onreadystatechange = callback();
     xmlHttp.send(message);
@@ -12,7 +12,7 @@ function identification() {
         if (xmlHttp.readyState == 4)
             if (xmlHttp.status == 200) {
                 if (xmlHttp.responseText == "true") {
-                    window.location.href = "http://localhost:8080/Lab2/listRings.jsp";
+                    window.location.href = "http://localhost:8080/Lab3/listRings.jsp";
                 } else {
                     document.getElementById("error").innerHTML = "Введен неверной логин/пароль"
                 }
@@ -52,7 +52,7 @@ function getRings() {
         }
     }
 
-    request.open("GET", "http://localhost:8080/Lab2/listRings?listRings=all", true);
+    request.open("GET", "http://localhost:8080/Lab3/listRings?listRings=all", true);
     request.send();
 }
 
@@ -64,7 +64,7 @@ function ajaxGet() {
         }
     }
 
-    request.open("GET", "http://localhost:8080/Lab2/ajax", true);
+    request.open("GET", "http://localhost:8080/Lab3/ajax", true);
     request.send();
 }
 
