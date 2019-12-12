@@ -24,10 +24,10 @@ public class checkLogin extends HttpServlet {
             ArrayList<UsersBean> usersBeans = UsersDao.checkLogin(login);
 
             if (usersBeans.isEmpty() == false) {
-                result = "Данный логин уже занят!";
+                result = "error";
             }
             else {
-                result = "Свободен!";
+                result = "empty";
             }
         } catch (Exception e) {
             e.printStackTrace();

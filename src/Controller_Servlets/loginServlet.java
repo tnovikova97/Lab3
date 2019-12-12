@@ -108,7 +108,7 @@ public class loginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
         doGet(request, response);
 
 //        UsersBean usersBean = new UsersBean();
@@ -119,7 +119,7 @@ public class loginServlet extends HttpServlet {
 //        usersBean.setPassword(password);
 //
 //        LoginDao loginDao = new LoginDao();
-//        String answer = loginDao.authenticateUser(usersBean.getLogin(), usersBean.getPassword());
+//        boolean answer = loginDao.authenticateUser(usersBean.getLogin(), usersBean.getPassword());
 //        System.out.println(answer);
 //
 //        if(answer) {
