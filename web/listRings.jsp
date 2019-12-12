@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<script src="js/ajax.js"></script>
 <html>
 <head>
     <title>Show All Rings</title>
@@ -69,6 +70,31 @@
     </div>
 
 
+<div id="forajax">
+    <form method="get" >
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Бренд</th>
+            <th>Металл</th>
+            <th>Вставка</th>
+            <th>Проба</th>
+            <th>Размер</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody id="listR">
+
+
+        </tbody>
+    </table>
+        <button id="button" type="button" onclick="getRings()">Список колец</button>
+    </form>
+</div>
 
 </div>
 </body>

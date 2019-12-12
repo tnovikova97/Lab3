@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersBean {
+    private int id;
     private String username;
     private String surname;
     private String email;
@@ -16,6 +17,7 @@ public class UsersBean {
     public UsersBean(){}
 
     public UsersBean(String username, String surname, String email, String login, String password, String role){
+        super();
         this.username = username;
         this.surname = surname;
         this.email = email;
@@ -29,6 +31,25 @@ public class UsersBean {
 //                this.role.add(role);
 //            }
 //        }
+    }
+
+    public UsersBean(int id, String username, String surname, String email, String login, String password, String role) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.surname = surname;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

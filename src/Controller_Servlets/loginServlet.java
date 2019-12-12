@@ -2,6 +2,7 @@ package Controller_Servlets;
 
 import Beans.UsersBean;
 import Model_DAO.LoginDao;
+import Model_DAO.UsersDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,8 @@ import java.io.IOException;
 @WebServlet("/loginServlet")
 public class loginServlet extends HttpServlet {
 
-//    public loginServlet() {
-//    }
+    public loginServlet() {
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,7 +36,7 @@ public class loginServlet extends HttpServlet {
         LoginDao loginDao = new LoginDao();
         //создание объекта для LoginDao
         if(loginDao == null)
-            System.out.println(" Объект логин не создан");
+            System.out.println("Объект логин не создан");
 
         try {
             String userValidate = loginDao.authenticateUser(usersBean);
@@ -107,9 +108,33 @@ public class loginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF8");
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
 
+//        UsersBean usersBean = new UsersBean();
+//        HttpSession session = request.getSession();
+//        String login = request.getParameter("loginAjax");
+//        String password = request.getParameter("passwordAjax");
+//        usersBean.setLogin(login);
+//        usersBean.setPassword(password);
+//
+//        LoginDao loginDao = new LoginDao();
+//        String answer = loginDao.authenticateUser(usersBean.getLogin(), usersBean.getPassword());
+//        System.out.println(answer);
+//
+//        if(answer) {
+//            response.setContentType("text/html");
+//            response.setHeader("Cache-Control", "no-cache");
+//            response.getWriter().write("true");
+//            usersBean = loginDao.authenticateUser(usersBean.getLogin());
+//            session.setAttribute("user", usersBean);
+//        }
+//
+//        else {
+//            response.setContentType("text/html");
+//            response.setHeader("Cache-Control", "no-cache");
+//            response.getWriter().write("false");
+//        }
     }
 
 

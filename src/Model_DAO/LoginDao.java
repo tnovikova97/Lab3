@@ -62,5 +62,6 @@ public class LoginDao {
         return "Invalid user or credentials";
         // в противном случае просто вернем соответствующее сообщение
     }
+
 }
 

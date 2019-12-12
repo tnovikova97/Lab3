@@ -279,7 +279,7 @@
         <div class="close-popup-reg js-close-reg"></div>
         <div class="user-form">
 
-            <form method="get" action="loginServlet" onsubmit="return validate_auth()" class="login-form"
+            <form method="post" action="loginServlet" onsubmit="" class="login-form"
                   id="login"
                   name="auth-form">
                 <h2>Войти</h2>
@@ -291,7 +291,9 @@
                     <input type="password" placeholder="Пароль" name="password" class="input-reg" required>
                     <div id="password_auth_error" class="validation_error"></div>
                 </div>
-                <input type="submit" value="Войти" name="reg" class="button_reg_auth">
+
+                <div id="login_response"></div>
+                <input type="button" value="Войти" name="reg" class="button_reg_auth" onclick="identification()" id="button">
                 <p class="message"> Нет аккаунта? <a href="" id="reg-link"> Зарегистрироваться</a></p>
             </form>
 
@@ -367,6 +369,7 @@
 
 <!--    user scripts-->
 <script src="js/main.js"></script>
+<script src="js/ajax.js" language="JavaScript"></script>
 
 
 </body>
