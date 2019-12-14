@@ -7,6 +7,7 @@ function include(url) {
 include("js/registration-authorization.js");
 include("js/tip-of-the-day.js");
 include("js/validation.js");
+include("js/ajax.js");
 
 
 

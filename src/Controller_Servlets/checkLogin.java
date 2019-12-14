@@ -11,27 +11,45 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//@WebServlet("/checkLoginAjax")
+//public class checkLogin extends HttpServlet {
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//        throws ServletException, IOException {
+//
+//        String result;
+//        result = "";
+//
+//        try {
+//            String st = request.getParameter("login");
+//            boolean login1 = UsersDao.checkLogin1(st);
+//
+//            if (login1 == true) {
+//                result = "error";
+//            }
+//            else {
+//                result = "empty";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        response.getWriter().write(result);
+//    }
+//
+//}
+
 @WebServlet("/checkLoginAjax")
 public class checkLogin extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String result;
-        result = "";
+        result="";
 
         try {
-            String login1 = request.getParameter("login");
-//            ArrayList<UsersBean> usersBeans = UsersDao.checkLogin(login);
-            boolean login = UsersDao.checkLogin(login1);
-
-            if (login == true) {
-                result = "error";
-            }
-            else {
-                result = "empty";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String logins = request.getParameter("login");
+            String user = UsersDao.checkLogin(logins);
+            if(logins!=""){result="not empty";}
+            else {result="empty";}
+        }
+        catch (Exception ex){
         }
         response.getWriter().write(result);
     }

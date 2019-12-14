@@ -293,7 +293,7 @@
                 </div>
 
                 <div id="login_response"></div>
-                <input type="button" value="Войти" name="reg" class="button_reg_auth" onclick="identification()" id="button">
+                <input type="button" value="Войти" name="reg" class="button_reg_auth" id="button">
                 <p class="message"> Нет аккаунта? <a href="" id="reg-link"> Зарегистрироваться</a></p>
             </form>
 
@@ -314,7 +314,7 @@
                     <div id="email_error" class="validation_error"></div>
                 </div>
                 <div>
-                    <input type="text" placeholder="Логин" name="login" onblur="ajaxPost(parameters)"  class="input-reg" id = "loginID"  required>
+                    <input type="text" placeholder="Логин" name="login" onblur="ajaxPost(this.value)"  class="input-reg" id = "loginID"  required>
                     <div id="result"></div>
                     <div id="login_error" class="validation_error"></div>
                 </div>
@@ -346,7 +346,7 @@
 
                 </div>
 
-                <input type="submit" value="Создать аккаунт"  name="reg" id="btn-reg" class="input-reg button_reg_auth" required>
+                <input type="submit" value="Создать аккаунт"  name="reg" id="btn-reg" class="input-reg button_reg_auth"  required>
                 <p class="message"> Уже есть аккаунт? <a href="" id="log-link">Войти</a></p>
 
             </form>
