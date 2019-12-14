@@ -111,23 +111,23 @@ public class loginServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         doGet(request, response);
 
-//        UsersBean usersBean = new UsersBean();
-//        HttpSession session = request.getSession();
+////        UsersBean usersBean = new UsersBean();
+////        HttpSession session = request.getSession();
 //        String login = request.getParameter("loginAjax");
-//        String password = request.getParameter("passwordAjax");
-//        usersBean.setLogin(login);
-//        usersBean.setPassword(password);
+////        String password = request.getParameter("passwordAjax");
+////        usersBean.setLogin(login);
+////        usersBean.setPassword(password);
 //
-//        LoginDao loginDao = new LoginDao();
-//        boolean answer = loginDao.authenticateUser(usersBean.getLogin(), usersBean.getPassword());
+//        UsersDao usersDao = new UsersDao();
+//        boolean answer = usersDao.checkLogin(login);
 //        System.out.println(answer);
 //
 //        if(answer) {
 //            response.setContentType("text/html");
 //            response.setHeader("Cache-Control", "no-cache");
 //            response.getWriter().write("true");
-//            usersBean = loginDao.authenticateUser(usersBean.getLogin());
-//            session.setAttribute("user", usersBean);
+////            usersBean = usersDao.checkLogin(usersBean.getLogin());
+////            session.setAttribute("user", usersBean);
 //        }
 //
 //        else {

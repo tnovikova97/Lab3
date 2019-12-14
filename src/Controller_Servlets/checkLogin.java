@@ -20,10 +20,11 @@ public class checkLogin extends HttpServlet {
         result = "";
 
         try {
-            String login = request.getParameter("login");
-            ArrayList<UsersBean> usersBeans = UsersDao.checkLogin(login);
+            String login1 = request.getParameter("login");
+//            ArrayList<UsersBean> usersBeans = UsersDao.checkLogin(login);
+            boolean login = UsersDao.checkLogin(login1);
 
-            if (usersBeans.isEmpty() == false) {
+            if (login == true) {
                 result = "error";
             }
             else {
@@ -34,4 +35,5 @@ public class checkLogin extends HttpServlet {
         }
         response.getWriter().write(result);
     }
+
 }

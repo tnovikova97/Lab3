@@ -1,10 +1,10 @@
 function identification() {
 
-    var login = document.getElementById("login").value;
-    var password = document.getElementById("password").value;
-    var message = "loginAjax=" + encodeURIComponent(login) + "&passwordAjax=" + encodeURIComponent(password);
+    var login = document.getElementById("loginID").value;
+    // var password = document.getElementById("password").value;
+    var message = "loginAjax=" + encodeURIComponent(login);
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8080/Lab3/login", true);
+    xmlHttp.open("POST", "http://localhost:8080/Lab3/checkLoginAjax", true);
     xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xmlHttp.onreadystatechange = callback();
     xmlHttp.send(message);
@@ -75,8 +75,8 @@ function getRings() {
 }
 
 window.onload = function () {
-    document.querySelector('#loginID').onchange = function () {
-        var input_login = document.querySelector('#loginID').value;
+    document.querySelector('input[name=login]').onchange = function () {
+        var input_login = document.querySelector('input[name=login]').value;
         var parameters = 'login = ' + input_login;
         ajaxPost(parameters);
     }
@@ -90,33 +90,33 @@ function ajaxPost(parameters) {
             }
         }
 
-    request.open("POST", "http://localhost:8080/Lab3/checkLoginAjax", true);
+    request.open("POST", "/checkLoginAjax", true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.send(parameters);
 }
 
-// $(document).ready(function(){
-//     $("#loginID").on('change', function(){
-//         var data = {
-//             "email": $("#loginID").val()
-//         }
-//         var url = "checkLogin";
-//
-//         $.ajax({
-//             url: url,
-//             method: "post",
-//             data: data,
-//             error: function(message) {
-//                 console.log(message);
-//                 //document.querySelector('#test').innerHTML = message;
-//             },
-//             success: function(data) {
-//                 console.log(data);
-//                 //document.querySelector('#info').innerHTML = request.responseText;
-//                 // $("#result").val=data;
-//                 if(data=="Свободен!"){$("#btn-reg").prop('disabled', false);}
-//                 else {$("#btn-reg").prop('disabled', true);}
-//             }
-//         });
-//     });
-// });
+$(document).ready(function(){
+    $("#loginID").on('change', function(){
+        var data = {
+            "login": $("#loginID").val()
+        }
+        var url = "checkLoginAjax";
+
+        $.ajax({
+            url: url,
+            method: "post",
+            data: data,
+            error: function(message) {
+                console.log(message);
+                //document.querySelector('#test').innerHTML = message;
+            },
+            success: function(data) {
+                console.log(data);
+                //document.querySelector('#info').innerHTML = request.responseText;
+                // $("#result").val=data;
+                if(data=="empty"){$("#btn-reg").prop('disabled', false);}
+                else {$("#btn-reg").prop('disabled', true);}
+            }
+        });
+    });
+});

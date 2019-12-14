@@ -297,7 +297,7 @@
                 <p class="message"> Нет аккаунта? <a href="" id="reg-link"> Зарегистрироваться</a></p>
             </form>
 
-            <form method="post" action="registrationServlet" onchange="ajaxPost(parameters)" class="register-form"
+            <form method="post" action="registrationServlet" class="register-form"
                   id="reg"
                   name="reg-form">
                 <h2>Регистрация</h2>
@@ -314,7 +314,7 @@
                     <div id="email_error" class="validation_error"></div>
                 </div>
                 <div>
-                    <input type="text" placeholder="Логин" name="login" class="input-reg" id = "loginID"  required>
+                    <input type="text" placeholder="Логин" name="login" onblur="ajaxPost(parameters)"  class="input-reg" id = "loginID"  required>
                     <div id="result"></div>
                     <div id="login_error" class="validation_error"></div>
                 </div>
