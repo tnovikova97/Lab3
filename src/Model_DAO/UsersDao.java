@@ -48,7 +48,7 @@ public class UsersDao {
         String query=null;
         String logins="";
         if (login!=null)
-        {query ="select * from users where login='"+login+"'order by user_id";}
+        {query ="select * from users where login='"+login+"'";}
         try{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, username, password)){

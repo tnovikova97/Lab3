@@ -94,36 +94,10 @@ function ajaxPost(parameters) {
     request.send(parameters);
 }
 
-// $(document).ready(function(){
-//     $("#loginID").on('change', function(){
-//         var data = {
-//             "login": $("#loginID").val()
-//         }
-//         var url = "checkLoginAjax";
-//
-//         $.ajax({
-//             url: url,
-//             method: "post",
-//             data: data,
-//             error: function(message) {
-//                 console.log(message);
-//                 //document.querySelector('#test').innerHTML = message;
-//             },
-//             success: function(data) {
-//                 console.log(data);
-//                 //document.querySelector('#info').innerHTML = request.responseText;
-//                 // $("#result").val=data;
-//                 if(data=="empty"){$("#btn-reg").prop('disabled', false);}
-//                 else {$("#btn-reg").prop('disabled', true);}
-//             }
-//         });
-//     });
-// });
-
 
 function checkLogin(login) {
     var xmlHttp = new XMLHttpRequest(); // Создаём объект XMLHTTP
-    xmlHttp.open('POST', '/checkLogin', true); // Открываем асинхронное соединение
+    xmlHttp.open('POST', '/checkLoginAjax', true); // Открываем асинхронное соединение
     xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем тип содержимого
     xmlHttp.send("login=" + encodeURIComponent(login)); // Отправляем POST-запрос
     xmlHttp.onreadystatechange = function() { // Ждём ответа от сервера
@@ -135,4 +109,19 @@ function checkLogin(login) {
     };
 }
 
+$(document).ready(function () {
+    $('#loginID').change(function () {
+        var loginID = $('#loginID').val();
 
+        $.ajax(
+            {
+                type: 'POST',
+                data: {loginID: loginID},
+                url: 'checkLoginAjax',
+                success: function (result) {
+                    $('#result').html(result);
+                }
+            }
+        )
+    })
+})
