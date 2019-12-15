@@ -1,24 +1,20 @@
-// function identification() {
-//
-//     var login = document.getElementById("loginID").value;
-//     // var password = document.getElementById("password").value;
-//     var message = "loginAjax=" + encodeURIComponent(login);
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open("POST", "http://localhost:8080/Lab3/checkLoginAjax", true);
-//     xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//     xmlHttp.onreadystatechange = callback();
-//     xmlHttp.send(message);
-//     function callback() {
-//         if (xmlHttp.readyState == 4)
-//             if (xmlHttp.status == 200) {
-//                 if (xmlHttp.responseText == "true") {
-//                     window.location.href = "http://localhost:8080/Lab3/listRings.jsp";
-//                 } else {
-//                     document.getElementById("#login_response").innerHTML = "Введен неверной логин/пароль"
-//                 }
-//             }
-//         }
-//     }
+function identification() {
+
+    var loginID = document.querySelector('#loginID').value;
+    // var password = document.getElementById("password").value;
+    var message = 'loginID=' + encodeURIComponent(loginID);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', 'checkLoginAjax', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xmlHttp.onreadystatechange = callback();
+    xmlHttp.send(message);
+    function callback() {
+        if (xmlHttp.readyState == 4)
+            if (xmlHttp.status == 200) {
+                 document.getElementById("#result").innerHTML = xmlHttp.responseText;
+            }
+        }
+    }
 
 
 // function getListRings() {
@@ -74,41 +70,51 @@ function getRings() {
     request.send();
 }
 
-window.onload = function () {
-    document.querySelector('input[name=login]').onchange = function () {
-        var input_login = document.querySelector('input[name=login]').value;
-        var parameters = 'login = ' + input_login;
-        ajaxPost(parameters);
-    }
-}
+// проверка логина
 
-function ajaxPost(parameters) {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            document.querySelector('#result').innerHTML = request.responseText;
-            }
-        }
-    request.open("POST", "http://localhost:8080/Lab3/checkLoginAjax", true);
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send(parameters);
-}
+// window.onload = function () {
+//     document.querySelector('#loginID').onchange = function () {
+//         var login = document.querySelector('#loginID').value;
+//         loginID = login;
+//         ajaxPost(loginID);
+//     }
+// }
+//
+// function ajaxPost(loginID) {
+//     var request = new XMLHttpRequest();
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             document.querySelector('#result').innerHTML = request.responseText;
+//             }
+//         }
+//     request.open("POST", "http://localhost:8080/Lab3/checkLoginAjax", true);
+//     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//     request.send(loginID);
+// }
 
+//
+// function checkLogin(loginID) {
+//     // Создаём объект XMLHTTP
+//     var xmlHttp = new XMLHttpRequest();
+//     // Открываем асинхронное соединение
+//     xmlHttp.open('POST', 'checkLoginAjax', true);
+//     // Отправляем тип содержимого
+//     xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//     // Отправляем POST-запрос
+//     xmlHttp.send(encodeURIComponent(loginID));
+//     // Ждём ответа от сервера
+//     xmlHttp.onreadystatechange = function() {
+//         // Ответ пришёл
+//         if (xmlHttp.readyState == 4) {
+//             // Сервер вернул код 200 (что хорошо)
+//             if(xmlHttp.status == 200) {
+//                 document.getElementById("result").innerHTML = xmlHttp.responseText;
+//             }
+//         }
+//     };
+// }
 
-function checkLogin(login) {
-    var xmlHttp = new XMLHttpRequest(); // Создаём объект XMLHTTP
-    xmlHttp.open('POST', '/checkLoginAjax', true); // Открываем асинхронное соединение
-    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем тип содержимого
-    xmlHttp.send("login=" + encodeURIComponent(login)); // Отправляем POST-запрос
-    xmlHttp.onreadystatechange = function() { // Ждём ответа от сервера
-        if (xmlHttp.readyState == 4) { // Ответ пришёл
-            if(xmlHttp.status == 200) { // Сервер вернул код 200 (что хорошо)
-                document.getElementById("result").innerHTML = xmlHttp.responseText;
-            }
-        }
-    };
-}
-
+// рабочая функция
 $(document).ready(function () {
     $('#loginID').change(function () {
         var loginID = $('#loginID').val();
