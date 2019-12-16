@@ -74,8 +74,9 @@ function getRings() {
     // всякий раз когда свойство readyState запроса XMLHttpRequest изменяется
     request.onreadystatechange = function () {
         // Свойство .readyState возвращает текущее состояние объекта XMLHttpRequest.
+        // Объект полностью инициализирован; получен ответ от сервера
         // условие: если текущее состояние объекта - данные загружены (операция полностью завершена) и
-        // код HTTP-статуса = 200 - «OK» (успешный запрос)
+        // код HTTP-статуса ответа = 200 - «OK» (успешный запрос)
         if (request.readyState == 4 && request.status == 200) {
             // в выбрвнный селектор вставляем текст ответа на запрос
             document.querySelector('#listR').innerHTML = request.responseText;
