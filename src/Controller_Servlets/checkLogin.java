@@ -80,9 +80,13 @@ public class checkLogin extends HttpServlet {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                // установка кодировки
                 response.setCharacterEncoding("utf-8");
+                // Установка типа содержимого ответа, отправляемого клиенту
                 response.setContentType("text/html");
+                // Директива no-cache означает, что при повторном запросе к тому же URL
                 response.setHeader("Cache-Control", "no-cache");
+                // записываем ответ сервлета
                 PrintWriter out = response.getWriter();
                 out.print("Занят!");
             }
